@@ -1,81 +1,81 @@
-# Tsumiki - AI駆動開発支援フレームワーク
+# Tsumiki - AI 驅動開發支援框架
 
-TsumikiはAI駆動開発のためのフレームワークです。要件定義から実装まで、AIを活用した効率的な開発プロセスを提供します。
+Tsumiki 是一款支援 AI 驅動開發的框架，從需求定義到實作，都能透過 AI 協助打造高效率的開發流程。
 
-基本的にClaude Codeをサポートしますが、それ以外のツールでも使用できます。[Claude Code以外のツールでtsumikiを使用する](#claude-code以外のツールでtsumikiを使用する) を参照してください。
+預設情況下主要支援 Claude Code，也可搭配其他工具使用。若要在其他工具中運用 Tsumiki，請參考[在非 Claude Code 工具中使用 tsumiki](#在非-claude-code-工具中使用-tsumiki)。
 
-## インストール
+## 安裝
 
-Tsumikiを使用するには、次のnpxコマンドでインストールしてください：
+請執行下列 npx 指令安裝 Tsumiki：
 
 ```bash
 npx tsumiki install
 ```
 
-このコマンドを実行すると、`.claude/commands/` にTsumikiのClaude Codeスラッシュコマンドがインストールされます。
+執行後會在 `.claude/commands/` 目錄中安裝 Tsumiki 的 Claude Code 斜線指令。
 
 ## 概要
 
-Tsumikiは以下の2つのコマンドで構成されています：
+Tsumiki 主要由以下兩組指令構成：
 
-- **kairo** - 要件定義から実装までの包括的な開発フロー
-- **tdd** - テスト駆動開発（TDD）の個別実行
+- **kairo**：涵蓋需求定義到實作的完整開發流程
+- **tdd**：測試驅動開發（TDD）的各階段指令
 
-### Kairoコマンド
+### Kairo 指令
 
-Kairoは要件定義から実装までの開発プロセスを自動化・支援します。以下の開発フローを支援します：
+Kairo 會在需求定義到實作的流程中自動化／協助開發。支援以下步驟：
 
-1. **要件定義** - 概要から詳細な要件定義書を生成
-2. **設計** - 技術設計文書を自動生成
-3. **タスク分割** - 実装タスクを適切に分割・順序付け
-4. **TDD実装** - テスト駆動開発による品質の高い実装
+1. **需求定義**：從概要產生詳細需求定義書
+2. **設計**：自動產出技術設計文件
+3. **任務拆解**：將實作任務適當拆分並排序
+4. **TDD 實作**：透過 TDD 建立高品質實作
 
-## 利用可能なコマンド
+## 可使用的指令
 
-- `init-tech-stack` - 技術スタックの特定
+- `init-tech-stack`：技術堆疊識別
 
-### Kairoコマンド（包括的開発フロー）
-- `kairo-requirements` - 要件定義
-- `kairo-design` - 設計文書生成
-- `kairo-tasks` - タスク分割
-- `kairo-implement` - 実装実行
+### Kairo 指令（完整開發流程）
+- `kairo-requirements`：需求定義
+- `kairo-design`：設計文件生成
+- `kairo-tasks`：任務拆解
+- `kairo-implement`：實作執行
 
-### TDDコマンド（個別実行）
-- `tdd-requirements` - TDD要件定義
-- `tdd-testcases` - テストケース作成
-- `tdd-red` - テスト実装（Red）
-- `tdd-green` - 最小実装（Green）
-- `tdd-refactor` - リファクタリング
-- `tdd-verify-complete` - TDD完了確認
+### TDD 指令（個別執行）
+- `tdd-requirements`：TDD 需求定義
+- `tdd-testcases`：測試案例建立
+- `tdd-red`：撰寫失敗測試（Red）
+- `tdd-green`：最小實作（Green）
+- `tdd-refactor`：重構
+- `tdd-verify-complete`：TDD 完成確認
 
-### リバースエンジニアリングコマンド
-- `rev-tasks` - 既存コードからタスク一覧を逆生成
-- `rev-design` - 既存コードから設計文書を逆生成
-- `rev-specs` - 既存コードからテスト仕様書を逆生成
-- `rev-requirements` - 既存コードから要件定義書を逆生成
+### 逆向工程指令
+- `rev-tasks`：從既有程式逆生成任務列表
+- `rev-design`：從既有程式逆生成設計文件
+- `rev-specs`：從既有程式逆生成測試規格
+- `rev-requirements`：從既有程式逆生成需求定義書
 
-## クイックスタート
+## 快速開始
 
-### 包括的な開発フロー
+### 完整開發流程
 
 ```bash
-# 1. 技術スタック初期化
+# 1. 初始化技術堆疊
 /init-tech-stack
 
-# 2. 要件定義
+# 2. 需求定義
 /kairo-requirements
 
 # 3. 設計
 /kairo-design
 
-# 4. タスク分割
+# 4. 任務拆解
 /kairo-tasks
 
-# 5. 実装
+# 5. 實作
 /kairo-implement
 ```
 
-### 個別TDDプロセス
+### 個別 TDD 流程
 
 ```bash
 /tdd-requirements
@@ -86,34 +86,34 @@ Kairoは要件定義から実装までの開発プロセスを自動化・支援
 /tdd-verify-complete
 ```
 
-### リバースエンジニアリング
+### 逆向工程
 
 ```bash
-# 1. 既存コードからタスク構造を分析
+# 1. 從既有程式分析任務結構
 /rev-tasks
 
-# 2. 設計文書の逆生成（タスク分析後推奨）
+# 2. 逆生成設計文件（建議在任務分析後執行）
 /rev-design
 
-# 3. テスト仕様書の逆生成（設計文書後推奨）
+# 3. 逆生成測試規格（建議在取得設計文件後執行）
 /rev-specs
 
-# 4. 要件定義書の逆生成（全分析完了後推奨）
+# 4. 逆生成需求定義書（建議所有分析完成後執行）
 /rev-requirements
 ```
 
-### 開発環境のクリーンアップ
+### 清理開發環境
 
 ```bash
-# 開発環境をクリーンアップ
+# 清理開發環境
 /clear
 ```
 
-## Claude Code以外のツールでtsumikiを使用する
+## 在非 Claude Code 工具中使用 tsumiki
 
-[rulesync](https://github.com/dyoshikawa/rulesync)を組み合わせて使用することで、Claude Code以外のツールでもtsumikiのコマンドを使用できます。
+搭配 [rulesync](https://github.com/dyoshikawa/rulesync) 即可在非 Claude Code 的工具中使用 Tsumiki 指令。
 
-`tsumiki install` 後、プロジェクトルートで以下のコマンドを実行します。
+執行 `tsumiki install` 後，請在專案根目錄執行下列指令：
 
 ```
 npx -y rulesync init
@@ -122,23 +122,23 @@ npx -y rulesync import \
   --targets claudecode \
   --features commands,subagents
 
-# Gemini CLIのカスタムスラッシュコマンドを出力する場合は以下のようになります。
-# （`--targets` には `claudecode`, `geminicli`, `roo` の指定が可能です）
+# 若要輸出 Gemini CLI 的自訂斜線指令，可改如下：
+# （`--targets` 可指定 `claudecode`、`geminicli`、`roo`）
 npx -y rulesync generate \
   --targets geminicli \
   --features commands
 
-# カスタムスラッシュコマンドの仕様が存在しない（または仕様的な制限のある）AIコーディングツールでも、 `--experimental-simulate-commands` フラグによりいくつかのツールではコマンドファイルを出力できます。
-# Cursorのカスタムスラッシュコマンドを出力する場合は以下のようになります。
-# （`--targets` には `cursor`, `copilot`, `codexcli` の指定が可能です）
+# 若目標 AI 編碼工具尚未提供自訂斜線指令，
+# 可加上 `--experimental-simulate-commands` 嘗試輸出部分工具支援的指令檔。
+# 例如輸出 Cursor 的自訂斜線指令：
 npx -y rulesync generate \
   --targets cursor \
-  --features commands
+  --features commands \
   --experimental-simulate-commands
 ```
 
-詳しくは[rulesync](https://github.com/dyoshikawa/rulesync)のREADMEを参照してください。
+更多資訊請參考 [rulesync](https://github.com/dyoshikawa/rulesync) 的 README。
 
-## 詳細なマニュアル
+## 詳細手冊
 
-使用方法の詳細、ディレクトリ構造、ワークフロー例、トラブルシューティングについては [MANUAL.md](./MANUAL.md) を参照してください。
+如需了解更完整的使用方法、目錄結構、工作流程範例與疑難排解，請參考 [MANUAL.md](./MANUAL.md)。

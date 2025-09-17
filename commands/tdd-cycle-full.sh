@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# TDD フルサイクル実行スクリプト
-# Usage: ./tdd-cycle-full.sh <test_case_name>
+# TDD 全流程執行腳本
+# 用法: ./tdd-cycle-full.sh <test_case_name>
 
-# 開始時間記録
+# 紀錄開始時間
 START_TIME=$(date +%s)
 
 if [ $# -ne 1 ]; then
@@ -13,100 +13,100 @@ fi
 
 TEST_CASE_NAME=$1
 
-# カラー定義
+# 色彩定義
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Claude コマンド共通設定
+# Claude 指令共用設定
 ALLOWED_TOOLS="Write,Edit,Bash(npm:*),Bash(node:*)"
 DISALLOWED_TOOLS="Bash(git *)"
 VERIFY_ALLOWED_TOOLS="Write,Edit,Bash(npm:*),Bash(node:*),Bash(git status),Bash(git diff)"
 VERIFY_DISALLOWED_TOOLS="Bash(git add),Bash(git commit),Bash(git push)"
 
-# TDDサイクル実行関数
+# TDD 流程執行函式
 run_tdd_cycle() {
     local test_case=$1
     
-    echo "🔴 RED フェーズ開始..."
-    if ! claude -p "/tdd-red $test_case 不足テストの追加実装" --allowedTools "$ALLOWED_TOOLS" --disallowedTools "$DISALLOWED_TOOLS"; then
-        echo -e "${RED}❌ RED フェーズ失敗${NC}"
+    echo "🔴 RED 階段開始..."
+    if ! claude -p "/tdd-red $test_case 補齊不足的測試" --allowedTools "$ALLOWED_TOOLS" --disallowedTools "$DISALLOWED_TOOLS"; then
+        echo -e "${RED}❌ RED 階段失敗${NC}"
         exit 1
     fi
-    echo -e "${GREEN}✅ RED フェーズ完了${NC}"
-    
-    echo "🟢 GREEN フェーズ開始..."
+    echo -e "${GREEN}✅ RED 階段完成${NC}"
+
+    echo "🟢 GREEN 階段開始..."
     if ! claude -p "/tdd-green $test_case" --allowedTools "$ALLOWED_TOOLS" --disallowedTools "$DISALLOWED_TOOLS"; then
-        echo -e "${RED}❌ GREEN フェーズ失敗${NC}"
+        echo -e "${RED}❌ GREEN 階段失敗${NC}"
         exit 1
     fi
-    echo -e "${GREEN}✅ GREEN フェーズ完了${NC}"
-    
-    echo "🔵 REFACTOR フェーズ開始..."
+    echo -e "${GREEN}✅ GREEN 階段完成${NC}"
+
+    echo "🔵 REFACTOR 階段開始..."
     if ! claude -p "/tdd-refactor $test_case" --allowedTools "$ALLOWED_TOOLS" --disallowedTools "$DISALLOWED_TOOLS"; then
-        echo -e "${RED}❌ REFACTOR フェーズ失敗${NC}"
+        echo -e "${RED}❌ REFACTOR 階段失敗${NC}"
         exit 1
     fi
-    echo -e "${GREEN}✅ REFACTOR フェーズ完了${NC}"
-    
-    echo "🔍 VERIFY COMPLETE フェーズ開始..."
+    echo -e "${GREEN}✅ REFACTOR 階段完成${NC}"
+
+    echo "🔍 VERIFY COMPLETE 階段開始..."
     local verify_result
     verify_result=$(claude -p "/tdd-verify-complete $test_case" --allowedTools "$VERIFY_ALLOWED_TOOLS" --disallowedTools "$VERIFY_DISALLOWED_TOOLS" 2>&1)
     local verify_exit_code=$?
     
     if [ $verify_exit_code -ne 0 ]; then
-        echo -e "${RED}❌ VERIFY COMPLETE フェーズ失敗${NC}"
+        echo -e "${RED}❌ VERIFY COMPLETE 階段失敗${NC}"
         exit 1
     fi
-    
-    echo -e "${GREEN}✅ VERIFY COMPLETE フェーズ完了${NC}"
+
+    echo -e "${GREEN}✅ VERIFY COMPLETE 階段完成${NC}"
     echo -e "${verify_result}
     
-    # 結果の判定
+    # 判定結果
     if echo "$verify_result" | grep -E "(完全性検証: 合格)" > /dev/null; then
-        echo -e "${GREEN}🎉 TDDサイクル完了${NC}: $test_case のTDDサイクルが正常に完了しました"
+        echo -e "${GREEN}🎉 TDD 流程完成${NC}: $test_case 的 TDD 流程已順利結束"
         return 0
     elif echo "$verify_result" | grep -E "(未実装|品質基準に満たない|追加実装が必要)" > /dev/null; then
-        echo -e "${YELLOW}🔄 TDDサイクル継続${NC}: 品質基準に満たない項目が見つかりました。RED フェーズに戻ります..."
+        echo -e "${YELLOW}🔄 持續 TDD 流程${NC}: 發現未滿足品質基準的項目，將回到 RED 階段..."
         return 1
     else
-        echo -e "${YELLOW}⚠️  判定結果が不明確です${NC}"
-        echo "--- VERIFY COMPLETE フェーズの出力 ---"
+        echo -e "${YELLOW}⚠️  判定結果不明確${NC}"
+        echo "--- VERIFY COMPLETE 階段輸出 ---"
         echo "$verify_result"
-        echo "--- 出力終了 ---"
+        echo "--- 輸出結束 ---"
         echo ""
-        echo -e "${BLUE}以下から選択してください:${NC}"
-        echo "1) 完了として扱う（TDDサイクルを終了）"
-        echo "2) RED フェーズから継続する"
-        echo "3) スクリプトを終了する"
+        echo -e "${BLUE}請選擇後續動作:${NC}"
+        echo "1) 視為完成（結束流程）"
+        echo "2) 從 RED 階段繼續"
+        echo "3) 結束腳本"
         echo ""
-        
+
         while true; do
-            read -p "選択 (1/2/3): " choice
+            read -p "選項 (1/2/3): " choice
             case $choice in
                 1)
-                    echo -e "${GREEN}🎉 TDDサイクル完了${NC}: ユーザー判断により完了とします"
+                    echo -e "${GREEN}🎉 TDD 流程完成${NC}: 依使用者判定視為完成"
                     return 0
                     ;;
                 2)
-                    echo -e "${YELLOW}🔄 TDDサイクル継続${NC}: ユーザー判断により RED フェーズに戻ります"
+                    echo -e "${YELLOW}🔄 持續 TDD 流程${NC}: 依使用者判定返回 RED 階段"
                     return 1
                     ;;
                 3)
-                    echo -e "${BLUE}👋 スクリプトを終了します${NC}"
+                    echo -e "${BLUE}👋 結束腳本${NC}"
                     exit 0
                     ;;
                 *)
-                    echo "無効な選択です。1, 2, または 3 を入力してください。"
+                    echo "無效選項，請輸入 1、2 或 3。"
                     ;;
             esac
         done
     fi
 }
 
-# 完了時間表示関数
+# 顯示完成時間的函式
 show_completion_time() {
     local exit_code=$1
     local end_time=$(date +%s)
@@ -115,44 +115,44 @@ show_completion_time() {
     local minutes=$(((duration % 3600) / 60))
     local seconds=$((duration % 60))
     
-    printf "⏱️  実行時間: "
+    printf "⏱️  執行時間: "
     if [ $hours -gt 0 ]; then
-        printf "%d時間%d分%d秒\n" $hours $minutes $seconds
+        printf "%d小時%d分%d秒\n" $hours $minutes $seconds
     elif [ $minutes -gt 0 ]; then
         printf "%d分%d秒\n" $minutes $seconds
     else
         printf "%d秒\n" $seconds
     fi
-    
-    printf "🕐 終了時刻: %s\n" "$(date +'%Y-%m-%d %H:%M:%S')"
-    
+
+    printf "🕐 結束時間: %s\n" "$(date +'%Y-%m-%d %H:%M:%S')"
+
     if [ $exit_code -eq 0 ]; then
-        echo -e "${GREEN}✅ 正常終了${NC}"
+        echo -e "${GREEN}✅ 正常結束${NC}"
     else
-        echo -e "${RED}❌ エラー終了${NC}"
+        echo -e "${RED}❌ 錯誤結束${NC}"
     fi
 }
 
-# trap設定（エラー終了時にも時間表示）
+# 設定 trap（即使錯誤也會顯示時間）
 trap 'show_completion_time $?' EXIT
 
-# メインループ
-echo "TDD フルサイクル実行開始: $TEST_CASE_NAME"
+# 主迴圈
+echo "啟動 TDD 全流程：$TEST_CASE_NAME"
 max_cycles=5
 cycle_count=0
 
 while [ $cycle_count -lt $max_cycles ]; do
     cycle_count=$((cycle_count + 1))
-    echo -e "${BLUE}=== サイクル $cycle_count 開始 ===${NC}"
+    echo -e "${BLUE}=== 第 $cycle_count 次循環開始 ===${NC}"
     
     if run_tdd_cycle "$TEST_CASE_NAME"; then
-        echo -e "${GREEN}🎉 全体完了: TDDサイクルが正常に完了しました${NC}"
+        echo -e "${GREEN}🎉 全部完成：TDD 流程已順利結束${NC}"
         exit 0
     fi
     
-    echo -e "${YELLOW}サイクル $cycle_count 完了、次のサイクルに進みます...${NC}"
+    echo -e "${YELLOW}第 $cycle_count 次循環完成，進入下一循環...${NC}"
     echo ""
 done
 
-echo -e "${RED}❌ 最大サイクル数($max_cycles)に達しました。手動で確認してください。${NC}"
+echo -e "${RED}❌ 已達最大循環次數($max_cycles)，請改以人工確認。${NC}"
 exit 1

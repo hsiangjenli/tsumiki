@@ -1,105 +1,105 @@
-# デフォルト技術スタック定義
+# 預設技術堆疊定義
 
-プロジェクト専用の技術スタック定義ファイルが見つからない場合に使用されるデフォルト定義です。
+當找不到專案專用的技術堆疊定義檔時，會使用此預設定義。
 
-## 優先順位
+## 優先順序
 
-1. **プロジェクト専用**: `docs/tech-stack.md`
-2. **プロジェクト共通**: `CLAUDE.md` の技術スタックセクション  
-3. **デフォルト**: この定義ファイル
+1. **專案專用**：`docs/tech-stack.md`
+2. **專案例共享**：`CLAUDE.md` 的技術堆疊章節  
+3. **預設**：本定義檔
 
-## デフォルト技術スタック
+## 預設技術堆疊
 
-### フロントエンド
-- **フレームワーク**: React 18+ または Vue 3+ または Next.js
-- **言語**: TypeScript 5.0+
-- **状態管理**: Redux Toolkit または Zustand または Pinia
-- **UIライブラリ**: Material-UI または Tailwind CSS または shadcn/ui
-- **バンドラー**: Vite または Webpack
+### 前端
+- **框架**：React 18+、Vue 3+ 或 Next.js
+- **語言**：TypeScript 5.0+
+- **狀態管理**：Redux Toolkit、Zustand 或 Pinia
+- **UI 套件**：Material-UI、Tailwind CSS 或 shadcn/ui
+- **打包工具**：Vite 或 Webpack
 
-### バックエンド
-- **フレームワーク**: Express.js または Fastify または Next.js API Routes
-- **言語**: TypeScript 5.0+ または JavaScript ES2022+
-- **データベース**: PostgreSQL 15+ または MySQL 8+ または SQLite
-- **ORM**: Prisma または TypeORM または Drizzle
-- **認証**: JWT または NextAuth.js
+### 後端
+- **框架**：Express.js、Fastify 或 Next.js API Routes
+- **語言**：TypeScript 5.0+ 或 JavaScript ES2022+
+- **資料庫**：PostgreSQL 15+、MySQL 8+ 或 SQLite
+- **ORM**：Prisma、TypeORM 或 Drizzle
+- **身分驗證**：JWT 或 NextAuth.js
 
-### キャッシュ・セッション
-- **キャッシュ**: Redis 7+ または Memcached
-- **セッション**: Redis または MemoryStore
+### 快取／工作階段
+- **快取**：Redis 7+ 或 Memcached
+- **工作階段**：Redis 或 MemoryStore
 
-### 開発環境
-- **コンテナ**: Docker + Docker Compose
-- **パッケージマネージャー**: npm または yarn または pnpm
-- **Node.js**: 18+ LTS
+### 開發環境
+- **容器**：Docker + Docker Compose
+- **套件管理器**：npm、yarn 或 pnpm
+- **Node.js**：18+ LTS
 
-### 開発ツール
-- **テストフレームワーク**: Jest または Vitest
-- **テストライブラリ**: Testing Library または Playwright
-- **リンター**: ESLint + Prettier
-- **型チェック**: TypeScript
-- **CI/CD**: GitHub Actions または GitLab CI
+### 開發工具
+- **測試框架**：Jest 或 Vitest
+- **測試套件**：Testing Library 或 Playwright
+- **Linter**：ESLint + Prettier
+- **型別檢查**：TypeScript
+- **CI/CD**：GitHub Actions 或 GitLab CI
 
-### デプロイ・インフラ
-- **フロントエンド**: Vercel または Netlify または Cloudflare Pages
-- **バックエンド**: Railway または Heroku または AWS または GCP
-- **データベース**: PostgreSQL (管理型) または自己管理
-- **CDN**: Cloudflare または AWS CloudFront
+### 部署與基礎設施
+- **前端**：Vercel、Netlify 或 Cloudflare Pages
+- **後端**：Railway、Heroku、AWS 或 GCP
+- **資料庫**：托管型 PostgreSQL 或自管環境
+- **CDN**：Cloudflare 或 AWS CloudFront
 
-## API設計
-- **アーキテクチャ**: RESTful API または GraphQL
-- **ドキュメント**: OpenAPI/Swagger または GraphQL Schema
-- **認証方式**: Bearer Token (JWT) または API Key
+## API 設計
+- **架構**：RESTful API 或 GraphQL
+- **文件**：OpenAPI/Swagger 或 GraphQL Schema
+- **認證方式**：Bearer Token（JWT）或 API Key
 
-## データ管理
-- **データベース設計**: 正規化 + 必要に応じて非正規化
-- **マイグレーション**: Prisma Migrate または TypeORM Migrations
-- **バックアップ**: 自動バックアップ推奨
+## 資料管理
+- **資料庫設計**：正規化為原則，必要時搭配非正規化
+- **遷移工具**：Prisma Migrate、TypeORM Migrations 等
+- **備份**：建議啟用自動備份
 
-## セキュリティ
-- **HTTPS**: 必須
-- **CORS**: 適切な設定
-- **認証**: JWT + Refresh Token パターン
-- **バリデーション**: サーバーサイドバリデーション必須
-- **環境変数**: 機密情報の適切な管理
+## 安全性
+- **HTTPS**：必須
+- **CORS**：妥善設定
+- **認證策略**：JWT + Refresh Token 模式
+- **驗證**：伺服器端參數驗證必須
+- **環境變數**：妥善管理機敏資訊
 
-## パフォーマンス要件
-- **API応答時間**: 3秒以内
-- **フロントエンド初期表示**: 2秒以内
-- **データベースクエリ**: インデックス最適化
-- **キャッシュ戦略**: 適切なTTL設定
+## 效能需求
+- **API 回應時間**：3 秒內
+- **前端初次渲染**：2 秒內
+- **資料庫查詢**：妥善建立索引
+- **快取策略**：設定適當 TTL
 
-## 品質基準
-- **テストカバレッジ**: 80%以上推奨
-- **コード品質**: ESLint + Prettier
-- **型安全性**: TypeScript strict mode
-- **アクセシビリティ**: WCAG 2.1 AA準拠推奨
+## 品質標準
+- **測試涵蓋率**：建議 80% 以上
+- **程式碼品質**：ESLint + Prettier
+- **型別安全**：啟用 TypeScript strict mode
+- **無障礙**：建議符合 WCAG 2.1 AA
 
-## ディレクトリ構造（推奨）
+## 推薦目錄結構
 
 ```
 project/
-├── docs/                    # ドキュメント
-│   ├── spec/               # 要件定義
-│   ├── design/             # 設計文書
-│   └── tasks/              # タスク管理
-├── src/                    # ソースコード
-│   ├── components/         # UIコンポーネント
-│   ├── services/           # ビジネスロジック
-│   ├── types/              # 型定義
-│   └── utils/              # ユーティリティ
-├── tests/                  # テストファイル
-├── prisma/                 # データベーススキーマ
-├── docker-compose.yml      # 開発環境
-└── package.json           # 依存関係
+├── docs/                    # 文件
+│   ├── spec/               # 需求定義
+│   ├── design/             # 設計文件
+│   └── tasks/              # 任務管理
+├── src/                    # 原始碼
+│   ├── components/         # UI 元件
+│   ├── services/           # 商業邏輯
+│   ├── types/              # 型別定義
+│   └── utils/              # 公用函式
+├── tests/                  # 測試檔案
+├── prisma/                 # 資料庫結構
+├── docker-compose.yml      # 開發環境設定
+└── package.json            # 相依套件
 ```
 
-## 使用方法
+## 使用方式
 
-このデフォルト定義は以下の場合に参照されます：
+以下情況會參考本預設定義：
 
-1. `docs/tech-stack.md` が存在しない
-2. `CLAUDE.md` に技術スタック情報がない
-3. 新規プロジェクトの初期設定
+1. 尚未建立 `docs/tech-stack.md`
+2. `CLAUDE.md` 中沒有技術堆疊資訊
+3. 新專案的初始設定階段
 
-プロジェクト固有の技術選択がある場合は、`docs/tech-stack.md` を作成して上書きしてください。
+若專案有自訂技術選擇，請建立 `docs/tech-stack.md` 覆寫此預設。
