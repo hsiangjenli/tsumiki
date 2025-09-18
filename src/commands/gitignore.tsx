@@ -26,19 +26,19 @@ const GitignoreComponent: React.FC = () => {
         const currentDir = process.cwd();
         const gitignorePath = path.join(currentDir, ".gitignore");
 
-        // tsumikiのcommandsディレクトリを取得
+        // 取得 tsumiki 的 commands 目錄
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
-        // ビルド後はdist/commandsを参照（cli.jsがdist/にあるため）
+        // build 後改讀 dist/commands（因 cli.js 位於 dist/）
         const tsumikiDir = path.join(__dirname, "commands");
 
-        // commandsディレクトリ内のすべての.mdファイルと.shファイルを取得
+        // 取得 commands 目錄內所有 .md 與 .sh 檔案
         const files = await fs.readdir(tsumikiDir);
         const targetFiles = files.filter(
           (file) => file.endsWith(".md") || file.endsWith(".sh"),
         );
 
-        // 具体的なファイルパスをルールとして作成
+        // 將實際檔案路徑轉換成忽略規則
         const rulesToAdd = targetFiles.map(
           (file) => `.claude/commands/${file}`,
         );
@@ -124,7 +124,7 @@ const GitignoreComponent: React.FC = () => {
   if (status === "starting") {
     return (
       <Box>
-        <Text color="cyan">🚀 .gitignore の更新を開始します...</Text>
+        <Text color="cyan">🚀 開始更新 .gitignore...</Text>
       </Box>
     );
   }
@@ -132,7 +132,7 @@ const GitignoreComponent: React.FC = () => {
   if (status === "checking") {
     return (
       <Box>
-        <Text color="yellow">📋 .gitignore ファイルをチェック中...</Text>
+        <Text color="yellow">📋 正在檢查 .gitignore 檔案...</Text>
       </Box>
     );
   }
@@ -140,7 +140,7 @@ const GitignoreComponent: React.FC = () => {
   if (status === "updating") {
     return (
       <Box>
-        <Text color="blue">✏️ .gitignore を更新中...</Text>
+        <Text color="blue">✏️ 正在更新 .gitignore...</Text>
       </Box>
     );
   }
@@ -148,7 +148,7 @@ const GitignoreComponent: React.FC = () => {
   if (status === "error") {
     return (
       <Box flexDirection="column">
-        <Text color="red">❌ エラーが発生しました:</Text>
+        <Text color="red">❌ 發生錯誤：</Text>
         <Text color="red">{error}</Text>
       </Box>
     );
@@ -157,16 +157,16 @@ const GitignoreComponent: React.FC = () => {
   if (status === "skipped") {
     return (
       <Box flexDirection="column">
-        <Text color="yellow">⏭️ すべてのルールが既に存在します</Text>
+        <Text color="yellow">⏭️ 所有規則都已存在</Text>
         <Newline />
-        <Text>既存のルール:</Text>
+        <Text>已存在的規則：</Text>
         {skippedRules.map((rule) => (
           <Text key={rule} color="gray">
             • {rule}
           </Text>
         ))}
         <Newline />
-        <Text color="cyan">.gitignore の更新は不要でした</Text>
+        <Text color="cyan">.gitignore 無需更新</Text>
       </Box>
     );
   }
@@ -174,11 +174,11 @@ const GitignoreComponent: React.FC = () => {
   if (status === "completed") {
     return (
       <Box flexDirection="column">
-        <Text color="green">✅ .gitignore の更新が完了しました!</Text>
+        <Text color="green">✅ .gitignore 更新完成！</Text>
         <Newline />
         {addedRules.length > 0 && (
           <>
-            <Text>追加されたルール ({addedRules.length}個):</Text>
+            <Text>新增規則（{addedRules.length} 個）：</Text>
             {addedRules.map((rule) => (
               <Text key={rule} color="green">
                 • {rule}
@@ -188,7 +188,7 @@ const GitignoreComponent: React.FC = () => {
         )}
         {skippedRules.length > 0 && (
           <>
-            <Text>既存のルール ({skippedRules.length}個):</Text>
+            <Text>已存在的規則（{skippedRules.length} 個）：</Text>
             {skippedRules.map((rule) => (
               <Text key={rule} color="gray">
                 • {rule}
@@ -198,7 +198,7 @@ const GitignoreComponent: React.FC = () => {
         )}
         <Newline />
         <Text color="cyan">
-          Tsumiki のコマンドファイルが Git から無視されるようになりました
+          已將 Tsumiki 的指令檔案加入 Git 忽略清單。
         </Text>
       </Box>
     );

@@ -62,13 +62,13 @@ run_tdd_cycle() {
     fi
 
     echo -e "${GREEN}✅ VERIFY COMPLETE 階段完成${NC}"
-    echo -e "${verify_result}
+    echo -e "${verify_result}"
     
     # 判定結果
-    if echo "$verify_result" | grep -E "(完全性検証: 合格)" > /dev/null; then
+    if echo "$verify_result" | grep -E "(完全性驗證[:：]? ?合格|完全性檢驗[:：]? ?合格)" > /dev/null; then
         echo -e "${GREEN}🎉 TDD 流程完成${NC}: $test_case 的 TDD 流程已順利結束"
         return 0
-    elif echo "$verify_result" | grep -E "(未実装|品質基準に満たない|追加実装が必要)" > /dev/null; then
+    elif echo "$verify_result" | grep -E "(未實作|品質基準未達|需追加實作)" > /dev/null; then
         echo -e "${YELLOW}🔄 持續 TDD 流程${NC}: 發現未滿足品質基準的項目，將回到 RED 階段..."
         return 1
     else

@@ -1,195 +1,191 @@
-# コントリビューションガイド
+# 貢獻指南
 
-Tsumikiプロジェクトへのコントリビューションをありがとうございます！このガイドでは、プロジェクトに貢献する方法について説明します。
+感謝你願意為 Tsumiki 專案貢獻！本文件說明如何設定開發環境、提交程式碼以及與專案維護者協作。
 
-## 開発環境のセットアップ
+## 開發環境設定
 
-### 必要な環境
+### 必備環境
 
-- Node.js 18.0.0以上
-- pnpm 10.13.1以上
+- Node.js 18.0.0 以上
+- pnpm 10.13.1 以上
 
-### セットアップ手順
+### 設定步驟
 
-1. リポジトリをフォークしてクローンします：
+1. 分叉並複製儲存庫：
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/tsumiki.git
 cd tsumiki
 ```
 
-2. 依存関係をインストールします：
+2. 安裝相依套件：
 
 ```bash
 pnpm install
 ```
 
-3. pre-commitフックをセットアップします：
+3. 設定 pre-commit 掛鉤：
 
 ```bash
 pnpm prepare
 ```
 
-## 開発ワークフロー
+## 開發流程
 
-### ブランチ戦略
+### 分支策略
 
-- `main`ブランチ：安定版のコード
-- 機能開発：`feature/機能名`
-- バグ修正：`bugfix/バグ名`
-- ホットフィックス：`hotfix/修正内容`
+- `main`：穩定版本
+- 功能開發：`feature/功能名稱`
+- 錯誤修正：`bugfix/錯誤名稱`
+- 緊急修補：`hotfix/修補內容`
 
-### 開発手順
+### 建議步驟
 
-1. 新しいブランチを作成します：
+1. 建立新分支：
 
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
-2. コードを変更します
+2. 進行程式修改
 
-3. コード品質チェックを実行します：
+3. 執行程式品質檢查：
 
 ```bash
-# 型チェック
+# 型別檢查
 pnpm typecheck
 
-# コードチェック
+# 程式碼檢查
 pnpm check
 
 # 自動修正
 pnpm fix
 
-# 機密情報チェック
+# 機密資訊檢查
 pnpm secretlint
 ```
 
-4. ビルドテストを実行します：
+4. 執行建置測試：
 
 ```bash
 pnpm build:run
 ```
 
-5. 変更をコミットします：
+5. 提交變更：
 
 ```bash
 git add .
-git commit -m "feat: 新機能の追加"
+git commit -m "feat: 新功能"
 ```
 
-## コミットメッセージ規約
+## Commit 訊息規範
 
-[Conventional Commits](https://www.conventionalcommits.org/)形式を使用してください：
+請使用 [Conventional Commits](https://www.conventionalcommits.org/) 格式：
 
-- `feat:` 新機能
-- `fix:` バグ修正
-- `docs:` ドキュメント変更
-- `style:` コードスタイル変更（機能に影響しない）
-- `refactor:` リファクタリング
-- `test:` テスト追加・修正
-- `chore:` ビルドプロセスやツール変更
+- `feat:` 新功能
+- `fix:` 問題修正
+- `docs:` 文件更新
+- `style:` 程式碼風格調整（不影響功能）
+- `refactor:` 程式碼重構
+- `test:` 測試新增或調整
+- `chore:` 建置流程或工具設定變更
 
-例：
+範例：
 ```
 feat: add new install command for .sh files
 fix: resolve path handling issue in install command
 docs: update README with new command examples
 ```
 
-## コード品質基準
+## 程式品質標準
 
-### 自動チェック
+### 自動檢查
 
-Pre-commitフックで以下が自動実行されます：
+Pre-commit 掛鉤會自動執行以下檢查：
 
-- **secretlint**: 機密情報（APIキー、パスワードなど）の混入チェック
-- **typecheck**: TypeScriptの型チェック
-- **fix**: Biomeによるコードの自動修正
+- **secretlint**：檢查是否混入 API 金鑰、密碼等敏感資訊
+- **typecheck**：執行 TypeScript 型別檢查
+- **fix**：使用 Biome 進行自動修正
 
-### 手動チェック
+### 手動檢查
 
-変更前に以下のコマンドを実行してください：
+在送出變更前，建議手動執行：
 
 ```bash
-# 全てのチェックを実行
+# 一次執行所有檢查
 pnpm typecheck && pnpm check && pnpm secretlint
 
-# コードの自動修正
+# 自動整理程式碼
 pnpm fix
 ```
 
-## プロジェクト構造
+## 專案結構
 
 ```
 tsumiki/
 ├── src/
-│   ├── cli.ts              # CLIエントリーポイント
+│   ├── cli.ts              # CLI 進入點
 │   └── commands/
-│       └── install.tsx     # インストールコマンドのUI実装
-├── commands/               # コマンドテンプレート（.md, .sh）
-├── dist/                  # ビルド出力
+│       └── install.tsx     # 安裝指令的 UI 實作
+├── commands/               # 指令範本（.md, .sh）
+├── dist/                   # 建置輸出
 ├── package.json
-├── CLAUDE.md              # プロジェクト指示書
+├── CLAUDE.md               # 專案指引
 └── README.md
 ```
 
-## プルリクエスト
+## Pull Request
 
-### プルリクエストの作成
+### 建立 Pull Request
 
-1. 変更をプッシュします：
+1. 推送分支：
 
 ```bash
 git push origin feature/your-feature-name
 ```
 
-2. GitHubでプルリクエストを作成します
+2. 在 GitHub 建立 Pull Request
 
-3. プルリクエストテンプレートに従って説明を記載します
+3. 依照 PR 範本填寫變更摘要
 
-### プルリクエストの要件
+### PR 必要條件
 
-- [ ] 変更内容が明確に説明されている
-- [ ] 関連するIssueがリンクされている（該当する場合）
-- [ ] コード品質チェックが通っている
-- [ ] ビルドが成功している
-- [ ] 機密情報が含まれていない
+- [ ] 清楚描述變更內容
+- [ ] 連結相關 Issue（若適用）
+- [ ] 所有檢查皆通過
+- [ ] 建置成功
+- [ ] 不含敏感資訊
 
-## Issue報告
+## Issue 回報
 
-バグ報告や機能要望は[Issues](https://github.com/classmethod/tsumiki/issues)で受け付けています。
+歡迎透過 [Issues](https://github.com/classmethod/tsumiki/issues) 提出錯誤回報或功能建議。
 
-### バグ報告
+### 回報錯誤時請提供
 
-以下の情報を含めてください：
+- 重現步驟
+- 預期行為
+- 實際行為
+- 環境資訊（作業系統、Node.js 版本等）
+- 錯誤訊息（若有）
 
-- 再現手順
-- 期待される動作
-- 実際の動作
-- 環境情報（OS、Node.jsバージョンなど）
-- エラーメッセージ（該当する場合）
+### 提出功能建議時請提供
 
-### 機能要望
+- 功能描述
+- 主要使用情境
+- 預期效益
+- 粗略的實作想法（若有）
 
-以下の情報を含めてください：
+## 資安議題
 
-- 提案する機能の説明
-- ユースケース
-- 期待される利益
-- 実装案（あれば）
+若發現安全性問題，請透過私訊或電子郵件回報，不要建立公開 Issue。
 
-## セキュリティ
+## 授權條款
 
-セキュリティに関する問題を発見した場合は、公開のIssueではなく、プライベートに報告してください。
+本專案採用 MIT 授權。提交程式碼即代表同意以 MIT 授權釋出。
 
-## ライセンス
+## 聯絡與支援
 
-このプロジェクトはMITライセンスの下で公開されています。コントリビューションする際は、このライセンスに同意したものとみなされます。
+- [Issues](https://github.com/classmethod/tsumiki/issues)：錯誤回報、功能建議
+- [Discussions](https://github.com/classmethod/tsumiki/discussions)：提問與討論
 
-## 質問・サポート
-
-- [Issues](https://github.com/classmethod/tsumiki/issues) - バグ報告、機能要望
-- [Discussions](https://github.com/classmethod/tsumiki/discussions) - 質問、議論
-
-コントリビューションをお待ちしています！
+期待你的貢獻與回饋！

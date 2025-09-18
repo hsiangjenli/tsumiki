@@ -62,7 +62,7 @@ NEVER: 請以每個測試案例最多約 500 行為目標分割測試檔。
 
 - **使用語言／框架**：依據已讀取的技術堆疊定義
 - 測試必須保證會失敗
-- 測試名稱請以易懂的日文撰寫
+- 測試名稱請以清楚易懂的名稱撰寫
 - 明確描述斷言（期待值驗證）
 - 以呼叫尚未實作的函式或方法的方式撰寫
 
@@ -143,31 +143,31 @@ NEVER: 請以每個測試案例最多約 500 行為目標分割測試檔。
 - 執行實際處理（When）
 - 驗證結果（Then）
 
-## 必填的日文註解要求
+## 必填的註解要求
 
-測試程式碼中必須包含以下日文註解：
+測試程式碼中必須包含以下註解：
 
 ### 測試案例開頭註解
 
 ```javascript
 describe('{{feature_name}}', () => {
   test('{{test_case_name}}', () => {
-    // 【テスト目的】: [請用日文清楚說明此測試要確認的內容]
-    // 【テスト内容】: [用日文描述測試具體流程]
-    // 【期待される動作】: [用日文說明預期結果]
-    // 🔵🟡🔴 信頼性レベル: [標示此內容與原始資料的對應程度]
+    // 【測試目的】: [請以繁體中文清楚說明此測試要確認的內容]
+    // 【測試內容】: [以繁體中文描述測試具體流程]
+    // 【預期行為】: [以繁體中文說明預期結果]
+    // 🔵🟡🔴 信賴等級: [標示此內容與原始資料的對應程度]
 
-    // 【テストデータ準備】: [為何要準備這組資料]
-    // 【初期条件設定】: [執行測試前的狀態說明]
+    // 【測試資料準備】: [為何要準備這組資料]
+    // 【初始條件設定】: [執行測試前的狀態說明]
     const input = {{test_input}};
 
-    // 【実際の処理実行】: [説明呼叫哪個功能或方法]
-    // 【処理内容】: [以日文說明執行內容]
+    // 【執行處理】: [說明呼叫哪個功能或方法]
+    // 【處理內容】: [以繁體中文說明執行內容]
     const result = {{function_name}}(input);
 
-    // 【結果検証】: [具體說明驗證項目]
-    // 【期待値確認】: [解釋期待值與理由]
-    expect(result).toBe({{expected_output}}); // 【確認内容】: [此驗證檢查的具體項目] 🔵🟡🔴
+    // 【結果驗證】: [具體說明驗證項目]
+    // 【預期值確認】: [解釋期待值與理由]
+    expect(result).toBe({{expected_output}}); // 【確認內容】: [此驗證檢查的具體項目] 🔵🟡🔴
   });
 });
 ```
@@ -176,24 +176,24 @@ describe('{{feature_name}}', () => {
 
 ```javascript
 beforeEach(() => {
-  // 【テスト前準備】: 說明每次測試前的準備工作
-  // 【環境初期化】: 說明如何保持測試環境乾淨
+  // 【測試前準備】: 說明每次測試前的準備工作
+  // 【環境初始化】: 說明如何保持測試環境乾淨
 });
 
 afterEach(() => {
-  // 【テスト後処理】: 說明每次測試後的清理作業
-  // 【状態復元】: 說明為何要還原狀態以免影響後續測試
+  // 【測試後處理】: 說明每次測試後的清理作業
+  // 【狀態還原】: 說明為何要還原狀態以免影響後續測試
 });
 ```
 
 ### 每個 expect 敘述的註解
 
-請在每個 expect 敘述後加上日文註解：
+請在每個 expect 敘述後加上註解：
 
 ```javascript
-expect(result.property).toBe(expectedValue); // 【確認内容】: 說明為何要比對此屬性
-expect(result.array).toHaveLength(3); // 【確認内容】: 說明為何要檢查陣列長度
-expect(result.errors).toContain('error message'); // 【確認内容】: 說明為何要確認錯誤訊息
+expect(result.property).toBe(expectedValue); // 【確認內容】: 說明為何要比對此屬性
+expect(result.array).toHaveLength(3); // 【確認內容】: 說明為何要檢查陣列長度
+expect(result.errors).toContain('error message'); // 【確認內容】: 說明為何要確認錯誤訊息
 ```
 
 ## 範例測試程式碼
@@ -201,35 +201,35 @@ expect(result.errors).toContain('error message'); // 【確認内容】: 說明�
 ### 單元／整合測試範例
 
 ```javascript
-// テストファイル: {{test_file_name}}
+// 測試檔案: {{test_file_name}}
 describe('{{feature_name}}', () => {
   beforeEach(() => {
-    // 【テスト前準備】: 在每次測試前初始化環境，確保條件一致
-    // 【環境初期化】: 為避免受前一次測試影響，重設檔案系統狀態
+    // 【測試前準備】: 在每次測試前初始化環境，確保條件一致
+    // 【環境初始化】: 為避免受前一次測試影響，重設檔案系統狀態
   });
 
   afterEach(() => {
-    // 【テスト後処理】: 刪除測試產生的暫存檔案或目錄
-    // 【状態復元】: 還原系統狀態以避免影響下一次測試
+    // 【測試後處理】: 刪除測試產生的暫存檔案或目錄
+    // 【狀態還原】: 還原系統狀態以避免影響下一次測試
   });
 
   test('{{test_case_name}}', () => {
-    // 【テスト目的】: {{test_purpose}}
-    // 【テスト内容】: {{test_description}}
-    // 【期待される動作】: {{expected_behavior}}
-    // 🔵🟡🔴 信頼性レベル: [標示資料可靠度]
+    // 【測試目的】: {{test_purpose}}
+    // 【測試內容】: {{test_description}}
+    // 【預期行為】: {{expected_behavior}}
+    // 🔵🟡🔴 信賴等級: [標示資料可靠度]
 
-    // 【テストデータ準備】: {{test_data_reason}}
-    // 【初期条件設定】: {{initial_condition}}
+    // 【測試資料準備】: {{test_data_reason}}
+    // 【初始條件設定】: {{initial_condition}}
     const input = {{test_input}};
 
-    // 【実際の処理実行】: {{function_description}}
-    // 【処理内容】: {{process_description}}
+    // 【執行處理】: {{function_description}}
+    // 【處理內容】: {{process_description}}
     const result = {{function_name}}(input);
 
-    // 【結果検証】: {{verification_description}}
-    // 【期待値確認】: {{expected_result_reason}}
-    expect(result).toBe({{expected_output}}); // 【確認内容】: {{specific_verification_point}}
+    // 【結果驗證】: {{verification_description}}
+    // 【預期值確認】: {{expected_result_reason}}
+    expect(result).toBe({{expected_output}}); // 【確認內容】: {{specific_verification_point}}
   });
 });
 ```
@@ -237,63 +237,63 @@ describe('{{feature_name}}', () => {
 ### UI 任務的 Playwright E2E 測試範例
 
 ```javascript
-// E2Eテストファイル: tests/e2e/{{feature_name}}.spec.js
+// E2E測試檔案: tests/e2e/{{feature_name}}.spec.js
 import { test, expect } from '@playwright/test';
 
-describe('{{feature_name}} E2Eテスト', () => {
+describe('{{feature_name}} E2E 測試', () => {
   test.beforeEach(async ({ page }) => {
-    // 【E2Eテスト前準備】: 啟動瀏覽器並前往目標頁面
-    // 【環境初期化】: 為讓各測試獨立執行而重置頁面狀態
+    // 【E2E測試前準備】: 啟動瀏覽器並前往目標頁面
+    // 【環境初始化】: 為讓各測試獨立執行而重置頁面狀態
     await page.goto('/{{target_page}}');
   });
 
   test('{{ui_test_case_name}}', async ({ page }) => {
-    // 【テスト目的】: {{ui_test_purpose}}
-    // 【テスト内容】: {{ui_test_description}}
-    // 【期待される動作】: {{expected_ui_behavior}}
-    // 🔵🟡🔴 信頼性レベル: [標示資料可靠度]
+    // 【測試目的】: {{ui_test_purpose}}
+    // 【測試內容】: {{ui_test_description}}
+    // 【預期行為】: {{expected_ui_behavior}}
+    // 🔵🟡🔴 信賴等級: [標示資料可靠度]
 
-    // 【初期状態確認】: {{initial_ui_state_reason}}
-    // 【画面表示確認】: {{screen_display_verification}}
+    // 【初始狀態確認】: {{initial_ui_state_reason}}
+    // 【畫面顯示確認】: {{screen_display_verification}}
     await expect(page.locator('{{initial_element_selector}}')).toBeVisible();
-    // 【確認内容】: 確認初始狀態下必要元素已顯示
+    // 【確認內容】: 確認初始狀態下必要元素已顯示
 
-    // 【ユーザー操作実行】: {{user_action_description}}
+    // 【使用者操作】: {{user_action_description}}
     // 【操作内容】: {{specific_action_description}}
     await page.click('{{target_button_selector}}');
     await page.fill('{{input_selector}}', '{{test_input_value}}');
     await page.click('{{submit_button_selector}}');
 
     // 【結果確認】: {{ui_result_verification}}
-    // 【期待される表示変化】: {{expected_ui_changes}}
+    // 【預期顯示變化】: {{expected_ui_changes}}
     await expect(page.locator('{{result_element_selector}}')).toContainText('{{expected_text}}');
-    // 【確認内容】: {{specific_ui_verification_point}}
+    // 【確認內容】: {{specific_ui_verification_point}}
 
-    // 【追加検証】: {{additional_verification_description}}
+    // 【追加驗證】: {{additional_verification_description}}
     await expect(page).toHaveURL('{{expected_url}}');
-    // 【確認内容】: 確認已導向正確頁面
+    // 【確認內容】: 確認已導向正確頁面
   });
 
   test('{{responsive_test_case_name}}', async ({ page }) => {
-    // 【テスト目的】: 確認響應式設計運作
-    // 【テスト内容】: 驗證不同螢幕尺寸下的 UI 顯示與可用性
-    // 【期待される動作】: 在手機、平板與桌機尺寸皆能正常顯示
-    // 🔵🟡🔴 信頼性レベル: [標示資料可靠度]
+    // 【測試目的】: 確認響應式設計運作
+    // 【測試內容】: 驗證不同螢幕尺寸下的 UI 顯示與可用性
+    // 【預期行為】: 在手機、平板與桌機尺寸皆能正常顯示
+    // 🔵🟡🔴 信賴等級: [標示資料可靠度]
 
-    // 【画面サイズ設定】: 設定為手機尺寸進行檢查
-    // 【レスポンシブ確認】: 測試小螢幕下的元素排列與可用性
+    // 【畫面尺寸設定】: 設定為手機尺寸進行檢查
+    // 【響應式確認】: 測試小螢幕下的元素排列與可用性
     await page.setViewportSize({ width: 375, height: 667 });
     
-    // 【モバイル表示確認】: 確認套用行動版版面
+    // 【行動版顯示確認】: 確認套用行動版版面
     await expect(page.locator('{{mobile_navigation_selector}}')).toBeVisible();
-    // 【確認内容】: 行動版導覽應顯示
+    // 【確認內容】: 行動版導覽應顯示
 
-    // 【タブレットサイズ設定】: 設定為平板尺寸
+    // 【平板尺寸設定】: 設定為平板尺寸
     await page.setViewportSize({ width: 768, height: 1024 });
     
-    // 【タブレット表示確認】: 確認平板版面呈現
+    // 【平板顯示確認】: 確認平板版面呈現
     await expect(page.locator('{{tablet_layout_selector}}')).toBeVisible();
-    // 【確認内容】: 平板專用版面應正確顯示
+    // 【確認內容】: 平板專用版面應正確顯示
   });
 });
 ```
@@ -301,41 +301,41 @@ describe('{{feature_name}} E2Eテスト', () => {
 ### 無障礙測試範例
 
 ```javascript
-// アクセシビリティテストファイル: tests/e2e/accessibility/{{feature_name}}.spec.js
+// 無障礙測試檔案: tests/e2e/accessibility/{{feature_name}}.spec.js
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-describe('{{feature_name}} アクセシビリティテスト', () => {
+describe('{{feature_name}} 無障礙測試', () => {
   test('{{accessibility_test_case_name}}', async ({ page }) => {
-    // 【テスト目的】: 確認符合 WCAG 等無障礙指引
-    // 【テスト内容】: 自動化無障礙檢查與鍵盤操作測試
-    // 【期待される動作】: 無障礙違規為零且可用鍵盤操作
-    // 🔵🟡🔴 信頼性レベル: [標示資料可靠度]
+    // 【測試目的】: 確認符合 WCAG 等無障礙指引
+    // 【測試內容】: 自動化無障礙檢查與鍵盤操作測試
+    // 【預期行為】: 無障礙違規為零且可用鍵盤操作
+    // 🔵🟡🔴 信賴等級: [標示資料可靠度]
 
-    // 【ページ読み込み】: 前往測試頁面
+    // 【頁面載入】: 前往測試頁面
     await page.goto('/{{target_page}}');
 
-    // 【自動アクセシビリティ検査】: 使用 axe-core 進行自動檢測
-    // 【WCAG準拠確認】: 檢查色彩對比、ALT 文字、標籤等
+    // 【自動無障礙検査】: 使用 axe-core 進行自動檢測
+    // 【符合 WCAG 的檢查】: 檢查色彩對比、ALT 文字、標籤等
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
-    // 【確認内容】: 確認未發現無障礙違規
+    // 【確認內容】: 確認未發現無障礙違規
 
-    // 【キーボード操作確認】: 驗證 Tab 鍵的焦點移動
+    // 【鍵盤操作確認】: 驗證 Tab 鍵的焦點移動
     // 【操作性確認】: 確認不用滑鼠也可完成所有操作
     await page.keyboard.press('Tab');
     await expect(page.locator('{{first_focusable_element}}')).toBeFocused();
-    // 【確認内容】: 焦點應移至第一個可聚焦元素
+    // 【確認內容】: 焦點應移至第一個可聚焦元素
   });
 });
 ```
 
 ## 請提供以下內容
 
-1. **測試程式碼**：可執行，且包含必要的日文註解
+1. **測試程式碼**：可執行，且包含必要的註解
 2. **測試執行指令**：說明如何執行測試
 3. **預期失敗訊息**：說明會出現的錯誤
-4. **註解說明**：解釋各日文註解的目的
+4. **註解說明**：解釋各註解的目的
 
 ### E2E 測試執行指令範例
 
@@ -397,59 +397,59 @@ npx cypress run --browser chrome
 `docs/implements/{要件名}/{{task_id}}/{feature_name}-memo.md` 的格式：
 
 ```markdown
-# TDD開発メモ: {feature_name}
+# TDD 開發備忘: {feature_name}
 
 ## 概要
 
 - 機能名: [功能名稱]
 - 開発開始: [日期時間]
-- 現在のフェーズ: [Red/Green/Refactor]
+- 目前階段: [Red/Green/Refactor]
 
-## 関連ファイル
+## 相關檔案
 
-- 元タスクファイル: `docs/tasks/{taskファイルのパス}.md`
+- 原始任務檔案: `docs/tasks/{task 檔案的路徑}.md`
 - 要件定義: `docs/implements/{要件名}/{{task_id}}/{feature_name}-requirements.md`
-- テストケース定義: `docs/implements/{要件名}/{{task_id}}/{feature_name}-testcases.md`
-- 実装ファイル: `[實作檔案路徑]`
-- テストファイル: `[測試檔案路徑]`
+- 測試案例定義: `docs/implements/{要件名}/{{task_id}}/{feature_name}-testcases.md`
+- 實作檔案: `[實作檔案路徑]`
+- 測試檔案: `[測試檔案路徑]`
 
-## Redフェーズ（失敗するテスト作成）
+## Red 階段（建立會失敗的測試）
 
 ### 作成日時
 
 [日期時間]
 
-### テストケース
+### 測試案例
 
 [建立的測試案例概要]
 
-### テストコード
+### 測試程式碼
 
 [實際的測試程式碼]
 
-### 期待される失敗
+### 預期失敗
 
 [預期出現哪些失敗]
 
-### 次のフェーズへの要求事項
+### 下一階段需求
 
 [Green 階段需實作的內容]
 
-## Greenフェーズ（最小実装）
+## Green 階段（最小實作）
 
-### 実装日時
+### 實作日時
 
 [日期時間]
 
-### 実装方針
+### 實作方針
 
 [最小實作方針]
 
-### 実装コード
+### 實作程式碼
 
 [實際的實作程式碼]
 
-### テスト結果
+### 測試結果
 
 [測試通過結果]
 
@@ -457,9 +457,9 @@ npx cypress run --browser chrome
 
 [Refactor 階段需改善的事項]
 
-## Refactorフェーズ（品質改善）
+## Refactor 階段（品質改善）
 
-### リファクタ日時
+### 重構時間
 
 [日期時間]
 
@@ -467,15 +467,15 @@ npx cypress run --browser chrome
 
 [具體改善內容]
 
-### セキュリティレビュー
+### 安全檢查
 
 [安全性檢查結果]
 
-### パフォーマンスレビュー
+### 效能檢查
 
 [效能檢查結果]
 
-### 最終コード
+### 最終程式碼
 
 [重構後的程式碼]
 
