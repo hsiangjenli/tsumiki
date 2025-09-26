@@ -1,38 +1,56 @@
 # prompt-repo-sdd-tdd 要件定義書
 
 ## 概要
-打造一個專屬的 prompt repo，讓不懂技術的使用者能夠通過自然語言描述需求，AI 協助生成結構化的 SDD (Specification-Driven Development) 和 TDD (Test-Driven Development) 開發流程，並整合 GitHub Issue 進行完整的專案管理。系統支援多輪對話式互動，自動建立分支、PR 和相關文件，所有開發記錄集中管理在 GitHub 上。
+打造一個專屬的 prompt repo，讓不懂技術的使用者能夠通過自然語言描述需求，AI 協助生成結構化的 SDD (Specification-Driven Development) 和 TDD (Test-Driven Development) 開發流程。系統以純 markdown 格式儲存所有 prompt 內容，使用 git 進行版本控制，重點在於設計高品質、可重用的 prompt 範本。
 
-## 相關文件
-- **使用者故事**：[📖 prompt-repo-sdd-tdd-user-stories.md](prompt-repo-sdd-tdd-user-stories.md)
-- **驗收標準**：[✅ prompt-repo-sdd-tdd-acceptance-criteria.md](prompt-repo-sdd-tdd-acceptance-criteria.md)
+## 設計考量
+
+### 技術堆疊偏好
+- **儲存格式**：純 Markdown（參考 commands/ 目錄結構）
+- **版本控制**：Git（分支管理、歷史追蹤）
+- **組織方式**：目錄結構化分類
+- **內容格式**：標準 Markdown + YAML frontmatter
+
+### 系統邊界
+- **核心功能**：Prompt 內容設計與組織
+- **外部依賴**：Git 版本控制系統
+- **資料流程**：需求分析 → Prompt 設計 → Markdown 文件 → Git 提交
+
+### 關鍵設計決策
+- **文件格式**：Markdown（易讀、可編輯、版本控制友好）
+- **組織結構**：類似 commands/ 目錄的分類方式
+- **內容重點**：Prompt 品質而非系統複雜度
+- **擴展性**：易於新增 prompt 類型和分類
 
 ## 功能需求（EARS 記法）
 
 **信賴等級：** 🔵 確定、🟡 推測、🔴 猜測
 
 ### 通常需求
-- REQ-001：系統必須支援自然語言需求描述解析，將模糊的業務需求轉換為結構化技術規格 🔵 *訪談確認*
-- REQ-002：系統必須提供類似 kairo-requirements 的功能，蒐集與分析現有專案資訊，向使用者進行需求訪談，並使用 EARS 記法整理成含驗收標準的需求定義書 🔵 *kairo-requirements.prompt.md*
-- REQ-003：系統必須自動生成完整的 SDD 文件，包含功能需求、非功能需求和架構設計 🔵 *訪談確認*
-- REQ-004：系統必須生成對應的 TDD 測試案例，包含單元測試、整合測試和驗收測試 🔵 *訪談確認*
-- REQ-005：系統必須根據需求類型（新功能、修改、Bug）自動建立和管理 GitHub Issue，使用適當的標籤和格式，將需求和任務關聯到具體的 Issue 🔵 *訪談確認*
-- REQ-006：系統必須支援多輪對話式互動，讓使用者逐步完善需求描述 🔵 *訪談確認*
-- REQ-007：系統必須整合 Claude Code、Codex CLI、GitHub Copilot 等開發工具，提供無縫的開發體驗 🔵 *訪談確認*
-- REQ-008：系統必須自動管理 Git 分支和 Pull Request，所有開發記錄和變更都記錄在對應分支上 🔵 *訪談確認*
+- REQ-001：系統必須以純 Markdown 格式儲存所有 prompt 內容，參考 commands/ 目錄的結構和格式 🔵 *使用者確認*
+- REQ-002：系統必須使用 Git 進行版本控制，支援分支管理、提交歷史和協作開發 🔵 *使用者確認*
+- REQ-003：系統必須提供類似 kairo-requirements 的功能，蒐集與分析現有專案資訊，向使用者進行需求訪談，並使用 EARS 記法整理成含驗收標準的需求定義書 🔵 *kairo-requirements.prompt.md*
+- REQ-004：系統必須設計高品質的 prompt 範本，包含清晰的執行流程、輸出格式和品質標準 🔵 *commands/ 目錄分析*
+- REQ-005：系統必須支援多種類型的 prompt（需求定義、設計、實作、測試等），每個 prompt 都有明確的用途和適用場景 🔵 *commands/ 目錄結構*
 
 ### 條件式需求
-- REQ-101：當使用者輸入模糊或不完整的業務需求時，系統必須引導進行多輪對話以釐清技術細節和邊界條件 🔵 *訪談確認*
-- REQ-102：當 SDD 和 TDD 生成完成時，系統必須自動建立對應的 GitHub Issue 並標記任務狀態 🔵 *訪談確認*
-- REQ-103：當開發任務完成時，系統必須自動建立 Pull Request 並關聯相關的 Issue 🔵 *訪談確認*
-- REQ-104：當使用 Claude Code 時，系統必須能夠從生成的 Issue 中提取任務並開始 TDD 開發流程 🔵 *訪談確認*
-- REQ-105：當使用 GitHub Copilot 時，系統必須能夠從生成的 Issue 中提取任務並開始 TDD 開發流程 🔵 *訪談確認*
-- REQ-106：當使用 Codex CLI 時，系統必須能夠從生成的 Issue 中提取任務並開始 TDD 開發流程 🔵 *訪談確認*
-- REQ-107：當使用 Claude Code 時，系統必須支援完整的 TDD 循環（Red-Green-Refactor）並自動生成提交訊息 🔵 *訪談確認*
-- REQ-108：當使用 GitHub Copilot 時，系統必須提供即時程式碼補全和測試案例生成建議 🔵 *訪談確認*
-- REQ-109：當使用 Codex CLI 時，系統必須支援批次處理多個 Issue 並生成命令列腳本 🔵 *訪談確認*
+- REQ-101：當設計新的 prompt 時，系統必須包含完整的 YAML frontmatter，定義用途、參數和輸出格式 🔵 *commands/ 目錄格式*
+- REQ-102：當 prompt 涉及多步驟流程時，系統必須清晰定義每個階段的輸入輸出和驗證標準 🔵 *kairo-requirements.prompt.md 分析*
+- REQ-103：當 prompt 需要處理複雜需求時，系統必須提供一問一答的互動模式和錯誤處理機制 🔵 *訪談確認*
 
 ### 狀態需求
+- REQ-201：處於需求定義階段時，系統必須使用 EARS 記法整理功能需求和驗收標準 🔵 *kairo-requirements.prompt.md*
+- REQ-202：處於設計階段時，系統必須生成結構化的設計文件和技術決策記錄 🔵 *設計文件分析*
+- REQ-203：處於實作階段時，系統必須提供 TDD 流程指導和程式碼品質標準 🔵 *tdd-*.md 文件分析*
+
+### 可選需求
+- REQ-301：系統可以支援 prompt 的參數化配置，允許根據不同專案調整 prompt 行為 🔵 *commands/ 目錄分析*
+- REQ-302：系統可以提供 prompt 組合功能，將多個相關 prompt 組織成完整的開發流程 🔵 *kairo 系列 prompt 分析*
+
+### 限制需求
+- REQ-401：系統必須只使用 Markdown 格式，不得包含任何程式碼實作 🔵 *使用者確認*
+- REQ-402：系統必須依賴 Git 進行版本控制，不得實作自定義的版本管理功能 🔵 *使用者確認*
+- REQ-403：系統不得涉及任何部署或執行環境，重點完全在於 prompt 內容設計 🔵 *使用者確認*
 - REQ-201：處於需求蒐集階段時，系統必須提供引導性問題幫助使用者完善描述 🔵 *訪談確認*
 - REQ-202：處於開發執行階段時，系統必須從 GitHub Issue 中提取 TDD 任務供 AI 開發者使用 🔵 *訪談確認*
 - REQ-203：處於驗收階段時，系統必須根據 TDD 測試案例驗證實作是否符合需求 🔵 *訪談確認*
@@ -81,3 +99,15 @@
 - EDGE-103：當 GitHub Issue 數量超過專案限制時，系統必須提供分批處理的解決方案 🔵 *推測基準*
 - EDGE-104：當多個專案同時要求生成時，系統必須按優先順序排隊處理 🔵 *推測基準*
 - EDGE-105：當 GitHub API 權限不足時，系統必須提供清晰的權限設定指引 🔵 *推測基準*
+
+## TODO 更新
+
+**狀態**：需求定義完成 ✅
+**下一步**：執行 `kairo-design` 產出設計文件
+
+### 設計文件待產生
+- `docs/design/prompt-repo-sdd-tdd/architecture.md`：系統架構設計
+- `docs/design/prompt-repo-sdd-tdd/dataflow.md`：資料流程圖  
+- `docs/design/prompt-repo-sdd-tdd/interfaces.ts`：TypeScript 介面定義
+- `docs/design/prompt-repo-sdd-tdd/database-schema.sql`：資料庫結構（若需要）
+- `docs/design/prompt-repo-sdd-tdd/api-endpoints.md`：API 規格
