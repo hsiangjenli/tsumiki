@@ -4,11 +4,11 @@
 prompt-repo-sdd-tdd 的重點在於整理高品質 Prompt 文件。當人類提出需求時，只要挑選合適的模板交給 AI，LLM 即可依腳本展開訪談、產出文件，並視需要協助建立 GitHub Issue、PR 或程式碼。整體流程為「人類描述需求 → 選用 Prompt 模板 → AI 依模板執行 → GitHub 紀錄成果」，必要時仍可同步輸出到本機檔案供人工調整。
 
 ## 模板選擇指南
-- **入口指令建議**：提供 `kairo-overview` 或 `prompt-index` 類模板，快速評估使用者需求並回傳推薦指令清單。
+- **入口指令建議**：提供 `index` 類模板，快速評估使用者需求並回傳推薦指令清單。
 - **決策樹文件**：維護 `docs/design/prompt-repo-sdd-tdd/template-map.md`（或同等索引），描述常見情境與對應模板，例如：
-  - 需求模糊 → 使用 `kairo-requirements`
-  - 需求已確認，需技術設計 → 使用 `kairo-design`
-  - 需要拆分任務 → 使用 `kairo-tasks`
+  - 需求模糊 → 使用 `requirements`
+  - 需求已確認，需技術設計 → 使用 `design`
+  - 需要拆分任務 → 使用任務拆解模板
   - 進入 TDD 實作 → 使用 `tdd-*` 系列
 - **模板內指示下一步**：每份 Prompt 結尾明示「完成後請執行 ___ 指令」與備選路徑，讓 LLM 能向使用者建議後續動作。
 - **命令太多時的 AI 協助**：鼓勵使用者先執行入口模板，由 AI 根據需求內容與已完成的階段自動推薦下一個指令。
@@ -28,11 +28,11 @@ prompt-repo-sdd-tdd 的重點在於整理高品質 Prompt 文件。當人類提�
 6. **後續串連**：每個模板結尾皆提示下個推薦指令或選項，確保 SDD/TDD 流程連貫。
 
 ## Prompt 組織與職責
-- **需求蒐集模板（kairo-requirements）**：以 EARS 格式整理需求、列出驗收標準、CI/CD 注意事項，並提示後續設計步驟。
+- **需求蒐集模板（requirements）**：以 EARS 格式整理需求、列出驗收標準、CI/CD 注意事項，並提示後續設計步驟。
 - **需求變更模板（requirements-change）**：在既有需求需新增或調整時更新 EARS 與 GWT，並規劃 GitHub Issue／PR 的變更流程。
-- **設計模板（kairo-design）**：依需求輸出資料流程、介面定義、API/CI/CD 指南等文件以及 Issue 建議。
-- **任務拆解模板（kairo-tasks）**：把需求轉為開發任務，提供 Issue 標題、內容、標籤與流水線任務設定。
-- **實作支援模板（kairo-implement、tdd-*）**：引導 LLM 依 TDD 或其它規範撰寫測試、程式碼與部署指令，並檢查 CI/CD 狀態。
+- **設計模板（design）**：依需求輸出資料流程、介面定義、API/CI/CD 指南等文件以及 Issue 建議。
+- **任務拆解模板**：把需求轉為開發任務，提供 Issue 標題、內容、標籤與流水線任務設定。
+- **實作支援模板（例如 TDD 流程）**：引導 LLM 依 TDD 或其它規範撰寫測試、程式碼與部署指令，並檢查 CI/CD 狀態。
 
 每份 Prompt 文件應包含：
 - 功能目標與適用情境
