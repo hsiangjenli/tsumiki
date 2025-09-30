@@ -11,6 +11,17 @@
 
 set -euo pipefail
 
+on_error() {
+  local exit_code=$?
+  echo "\n❌ TDD 自動流程中斷，exit code: $exit_code" >&2
+  echo "請檢查上一個 Prompt 的輸出，並在 TDD Issue 更新阻塞與連續錯誤計數。" >&2
+  if [[ -n "${TDD_ISSUE:-}" ]]; then
+    echo "若為相同錯誤重複發生，請依規則透過 MCP 在 Issue #${TDD_ISSUE} 留言／調整標籤。" >&2
+  fi
+}
+
+trap on_error ERR
+
 PROMPT_CLI=${PROMPT_CLI:-claude}
 PROMPT_ROOT=".github/prompts"
 
