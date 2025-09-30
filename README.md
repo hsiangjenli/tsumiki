@@ -34,6 +34,11 @@ Kairo 會在需求定義到實作的流程中自動化／協助開發。支援�
 
 - `init-tech-stack`：技術堆疊識別
 
+### 技術堆疊入口
+
+- `.github/prompts/tech-stack.prompt.md`：以問答方式盤點專案技術決策，缺項時可先沿用下方預設並標記為暫用。
+- 建議將輸出貼至對應的 GitHub Issue，以便後續 BDD／SDD／TDD 與實作階段引用相同基準。
+
 ### Kairo 指令（完整開發流程）
 - `kairo-requirements`：需求定義
 - `kairo-design`：設計文件生成
@@ -53,6 +58,56 @@ Kairo 會在需求定義到實作的流程中自動化／協助開發。支援�
 - `rev-design`：從既有程式逆生成設計文件
 - `rev-specs`：從既有程式逆生成測試規格
 - `rev-requirements`：從既有程式逆生成需求定義書
+
+## 預設技術堆疊基準
+
+若專案尚未定義專用技術堆疊，請先執行 `init-tech-stack` 或參考 `.github/prompts/tech-stack.prompt.md` 與下列預設。後續實作（包含 `scripts/tdd-cycle.sh`、AI 代理實作、人工開發）需明確對照此清單，並在決策變更時更新 README 與相關 Issue。
+
+### 前端
+- 框架：React 18+、Vue 3+ 或 Next.js
+- 語言：TypeScript 5.0+
+- 狀態管理：Redux Toolkit、Zustand 或 Pinia
+- UI 套件：Material-UI、Tailwind CSS 或 shadcn/ui
+- 打包工具：Vite 或 Webpack
+
+### 後端與 API
+- 框架：Express.js、Fastify 或 Next.js API Routes
+- 語言：TypeScript 5.0+ 或 JavaScript ES2022+
+- 資料層：PostgreSQL 15+、MySQL 8+ 或 SQLite
+- ORM：Prisma、TypeORM 或 Drizzle
+- 認證：JWT 或 NextAuth.js
+
+### 快取與工作階段
+- 快取：Redis 7+ 或 Memcached
+- Session：Redis 或 MemoryStore
+
+### 開發環境與工具
+- Node.js：18+ LTS
+- 套件管理：npm、yarn 或 pnpm
+- 測試：Jest 或 Vitest（可搭配 Testing Library / Playwright）
+- Linter：ESLint + Prettier
+- 型別檢查：TypeScript strict mode
+- CI/CD：GitHub Actions 或 GitLab CI
+
+### 部署與基礎設施
+- 前端託管：Vercel、Netlify 或 Cloudflare Pages
+- 後端託管：Railway、Heroku、AWS、GCP
+- 資料庫：託管型 PostgreSQL 或自管環境
+- CDN：Cloudflare 或 AWS CloudFront
+
+### API 與資料治理
+- API 架構：REST 或 GraphQL
+- 文件：OpenAPI/Swagger 或 GraphQL Schema
+- 資料管理：正規化為原則，必要時搭配非正規化；遷移工具可選 Prisma Migrate、TypeORM Migrations 等
+- 安全性：HTTPS、Bearer Token／API Key、伺服器端輸入驗證、妥善管理環境變數
+
+### 效能與品質建議
+- API 回應時間：3 秒內
+- 首屏渲染：2 秒內
+- 測試涵蓋率建議 80% 以上
+- 無障礙：建議符合 WCAG 2.1 AA
+
+符合專案需求後，請將實際採用的技術於 GitHub Issue／PR 中確認並回寫至本區，避免不同指令或代理使用過時設定。
 
 ## 快速開始
 
