@@ -61,7 +61,7 @@ Kairo 會在需求定義到實作的流程中自動化／協助開發。支援�
 
 ## 預設技術堆疊基準
 
-若專案尚未定義專用技術堆疊，請先執行 `init-tech-stack` 或參考 `.github/prompts/tech-stack.prompt.md` 與下列預設。後續實作（包含 `scripts/tdd-cycle.sh`、AI 代理實作、人工開發）需明確對照此清單，並在決策變更時更新 README 與相關 Issue。
+若專案尚未定義專用技術堆疊，請先執行 `init-tech-stack` 或參考 `.github/prompts/tech-stack.prompt.md` 與下列預設。後續的 AI 協作或人工開發都應以此清單為準，技術決策調整時記得更新 README 與相關 Issue。
 
 ### 前端
 - 框架：React 18+、Vue 3+ 或 Next.js
